@@ -62,7 +62,7 @@ func Intranet(wg *sync.WaitGroup) {
 	}
 	exit := make(chan os.Signal)
 	signal.Notify(exit, syscall.SIGINT, syscall.SIGTERM)
-	go shutdown(exit, wg, srv, inDomain)
+	go intranetshutdown(exit, wg, srv, inDomain)
 	log.Debug("the Intranet http server run localhost:6060")
 	config.Log.Debug("[%s] the Intranet http server run localhost:6060", time.Now())
 	srv.ListenAndServe()
@@ -73,6 +73,23 @@ func shutdown(exit chan os.Signal, wg *sync.WaitGroup, srv *http.Server, domain 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(config.M.OldGateway.TimeOut)*time.Second)
 	defer func() {
 		cancel()
+		wg.Done()
+	}()
+	log.Warn(" gracefully shutdown the http server %s", domain)
+	err := srv.Shutdown(ctx)
+	if err != nil {
+		config.Log.Error("http server %v shutdown err:%v", domain, err)
+		return
+	}
+}
+
+func intranetshutdown(exit chan os.Signal, wg *sync.WaitGroup, srv *http.Server, domain string) {
+	<-exit
+	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(config.M.OldGateway.TimeOut)*time.Second)
+	defer func() {
+		cancel()
+		close(config.InsertChan)
+		close(config.DeleteChan)
 		close(config.ServiceChan)
 		close(config.ManagerChan)
 		wg.Done()

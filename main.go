@@ -1,14 +1,13 @@
 package main
 
 import (
-	"quick/router"
+	"flag"
 	_ "net/http/pprof"
 	"quick/initialize"
-	"flag"
+	"quick/router"
 )
 
-
-func main(){
+func main() {
 	conf := *flag.String("f", "./config/config.toml", "config file")
 	flag.Parse()
 	initialize.Initialize(conf)

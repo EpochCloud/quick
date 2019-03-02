@@ -1,0 +1,5 @@
+
+# 启动内网拉取一次性配置
+[confCenter]
+    Addr = "http://127.0.0.1:8081/quick_configuration"
+    SrvAddr = "http://127.0.0.1:8081/quick_operation"

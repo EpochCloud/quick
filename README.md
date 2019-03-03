@@ -33,13 +33,13 @@ quick是一款专为微服务架构定制的高性能网关
 ```go
  在此步骤之前运行了confcenter并且注册了信息，方可进行下面步骤
   cd $GOPATH
-  cd src/github.com/EpochCloud/quick
-  go install 
-  cd $GOPATH
+  go install github.com/EpochCloud/quick
+  cd /bin
+  mv quick ../src/github.com/EpochCloud/quick
   win 环境
-  quick.exe -f ./src/quick/config/config.toml
+  quick.exe -f ./config/config.toml
   linux环境
-  ./quick -f ./src/quick/config/config.toml
+  ./quick -f ./config/config.toml
 ```
 
 
@@ -50,7 +50,7 @@ quick是一款专为微服务架构定制的高性能网关
 注意由于本人能力有限，没有给出前端代码，所以下面一切测试均在postman中测试
 
 1、运行confcenter并且注册quick的配置
-    /gateway_configuration  //注册quick服务
+    /gateway_configuration  //注册quick服务  post
     {
         "ip":"127.0.0.1",     //quick的外网地址
         "port":"8090",        //quick的外网端口
@@ -134,5 +134,25 @@ route   ：/quick_operation
 ```go
 使用灰度和紧急修复下线都是秒级进行的，不会存在卡顿，所以不用担心使用这些功能会出现网关卡顿等对业务的影响
 
+```
+
+## 启动quick可能遇到的问题
+
+```
+    loglevel is not null
+    这样需要你继续回到示例1，把下面的logpath换成自己的
+    /gateway_configuration  //post
+    {
+        "ip":"127.0.0.1",     //quick的外网地址
+        "port":"8090",        //quick的外网端口
+        "timeout":15,         //quick的平滑重启超时时间
+        "loglevel":"debug",   //quick的日志级别
+        "logpath":"D:/project/src/quick/logcatlog",  //quick打印日志的路径
+        "bufpool":0,          //需要的缓存池数量，默认0
+        "intranetip":"127.0.0.1",  //内网的ip
+        "intranetport":"6060",     //内网的端口
+        "managerroute":"/manager",  //quick内网的配置路由
+        "serviceroute":"/service"   //quick的内网服务路由
+    }
 ```
 

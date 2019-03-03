@@ -49,7 +49,7 @@ quick是一款专为微服务架构定制的高性能网关
   cd $GOPATH
   cd src/github.com/EpochCloud/quick
   go install 
-  cd $GOPATH
+  cd $GOPATH/bin
   win 环境
   quick.exe -f ./src/quick/config/config.toml
   linux环境

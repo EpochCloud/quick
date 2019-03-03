@@ -23,6 +23,20 @@ quick是一款专为微服务架构定制的高性能网关
 1、首先注册quick的配置信息
 /quick_operation  ：注册quick的配置
 /gateway_configuration ：需要注册的服务
+2、在quick的config的config.toml文件中注册
+只需要把前端的ip和port更改为confcenter的ip和port就可以
+比如：
+   clone代码下来的toml文件内容为
+   [confCenter]
+    Addr = "http://127.0.0.1:8081/quick_configuration"
+    SrvAddr = "http://127.0.0.1:8081/quick_operation"
+如果confcenter在192.168.51.11机器上面，那么只需要修改成如下即可
+ [confCenter]
+    Addr = "http://192.168.51.11:8081/quick_configuration"
+    SrvAddr = "http://192.168.51.11:8081/quick_operation"
+
+注意：这里的toml有效只有一次，也就是刚启动的时候有效，启动之后这个配置文件就没什么用了，所以不用担心，以后不会修改这个配置文件
+即使confcenter从192.168.51.11:8081迁移到192.168.51.12:8082 这也是没有问题的，quick会依旧保持高性能的运行状态，没有任何影响
 
 ```
 

@@ -24,6 +24,11 @@ quick是一款专为微服务架构定制的高性能网关
 /quick_operation  ：注册quick的配置
 /gateway_configuration ：需要注册的服务
 2、go get github.com/EpochCloud/quick...
+这里goget的时候可能会报如下信息
+package ConfCenter/initialization: unrecognized import path "ConfCenter/initialization" (import path does not begin with hostname)
+package ConfCenter/router: unrecognized import path "ConfCenter/router" (import path does not begin with hostname)
+这是github包的问题，暂时不用管，可以查看项目已经下下来了，如果没有，就再执行一遍
+
 3、在quick的config的config.toml文件中注册
 只需要把前面的ip和port更改为confcenter的ip和port就可以
 比如：
@@ -48,14 +53,15 @@ quick是一款专为微服务架构定制的高性能网关
 ```go
  在此步骤之前运行了confcenter并且注册了信息，方可进行下面步骤
   cd $GOPATH
-  go install github.com/EpochCloud/quick
-  cd /bin
-  mv quick ../src/github.com/EpochCloud/quick
-  cd ../src/github.com/EpochCloud/quick
+  go get  github.com/EpochCloud/quick
+  mv ./src/github.com/EpochCloud/quick ./src/
+  go build quick
+  mv quick src/quick/
+   mv quick src/quick/
   win 环境
-  quick.exe -f ./config/config.toml
+  quick.exe
   linux环境
-  ./quick -f ./config/config.toml
+  ./quick
 ```
 
 

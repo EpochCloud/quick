@@ -23,8 +23,9 @@ quick是一款专为微服务架构定制的高性能网关
 1、首先注册quick的配置信息
 /quick_operation  ：注册quick的配置
 /gateway_configuration ：需要注册的服务
-2、在quick的config的config.toml文件中注册
-只需要把前端的ip和port更改为confcenter的ip和port就可以
+2、go get github.com/EpochCloud/quick...
+3、在quick的config的config.toml文件中注册
+只需要把前面的ip和port更改为confcenter的ip和port就可以
 比如：
    clone代码下来的toml文件内容为
    [confCenter]
@@ -47,16 +48,10 @@ quick是一款专为微服务架构定制的高性能网关
 ```go
  在此步骤之前运行了confcenter并且注册了信息，方可进行下面步骤
   cd $GOPATH
-<<<<<<< HEAD
   go install github.com/EpochCloud/quick
   cd /bin
   mv quick ../src/github.com/EpochCloud/quick
-=======
-  cd src/github.com/EpochCloud/quick
-  go install 
-  cd $GOPATH/bin
-  mv quick ../
->>>>>>> 7ff50f278d733899e80e16bbef4df1b523a54189
+  cd ../src/github.com/EpochCloud/quick
   win 环境
   quick.exe -f ./config/config.toml
   linux环境
@@ -98,8 +93,14 @@ quick是一款专为微服务架构定制的高性能网关
         },
         "servicename": "liantiao"          //注册的服务名字
     }
-4、git clone gin_example_for_quick,并且启动
-5、这样直接访问quick的外网
+4、go github.com/EpochCloud/gin_example_for_quick
+  go install github.com/EpochCloud/gin_example_for_quick
+  cd bin 
+  win环境
+  gin_example_for_quick.exe
+  linux\mac
+  ./gin_example_for_quick
+5、然后直接访问quick的外网
 http://127.0.0.1:8090/  get请求
 返回值为 hello word
 ```

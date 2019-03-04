@@ -27,7 +27,7 @@ quick是一款专为微服务架构定制的高性能网关
 这里goget的时候可能会报如下信息
 package ConfCenter/initialization: unrecognized import path "ConfCenter/initialization" (import path does not begin with hostname)
 package ConfCenter/router: unrecognized import path "ConfCenter/router" (import path does not begin with hostname)
-这是github包的问题，暂时不用管，可以查看项目已经下下来了，如果没有，就再执行一遍
+这是我没适配github路径的问题，暂时不用管
 
 3、在quick的config的config.toml文件中注册
 只需要把前面的ip和port更改为confcenter的ip和port就可以

@@ -57,7 +57,6 @@ package ConfCenter/router: unrecognized import path "ConfCenter/router" (import 
   mv ./src/github.com/EpochCloud/quick ./src/
   go build quick
   mv quick src/quick/
-   mv quick src/quick/
   win 环境
   quick.exe
   linux环境

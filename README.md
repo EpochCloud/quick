@@ -91,7 +91,7 @@ linux环境
 注意由于本人能力有限，没有给出前端代码，所以下面一切测试均在postman中测试
 
 1、运行confcenter并且注册quick的配置
-```json
+```go
 /gateway_configuration  //注册quick服务  post
 {
     "ip":"127.0.0.1",     //quick的外网地址
@@ -111,7 +111,7 @@ linux环境
 
 3、注册服务到网关
 
-```json
+```go
 /quick_operation  //注册接入服务   
 {
     "route": "/",    //服务的路由
@@ -155,7 +155,7 @@ http://127.0.0.1:8090/  get请求
 
 示例
 1、打开postman
-```json
+```go
 domain  ：confcenter的地址
 method  ：POST
 route   ：/quick_operation    
@@ -180,7 +180,7 @@ route   ：/quick_operation
 
 示例
 1、打开postman
-```json
+```go
 domain  ：confcenter的地址
 method  ：delete
 route   ：/quick_operation    
@@ -209,7 +209,7 @@ route   ：/quick_operation
 loglevel is not null
 ```
 这样需要你继续回到上面的**示例1**，把下面的logpath换成自己的
-```json
+```go
 /gateway_configuration  //post
 {
     "ip":"127.0.0.1",     //quick的外网地址

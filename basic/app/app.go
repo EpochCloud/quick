@@ -10,6 +10,7 @@ import (
 )
 
 
+//pull quick config from confCenter
 func Configuration(w http.ResponseWriter,r *http.Request){
 	switch r.Method {
 	case http.MethodPost:
@@ -17,7 +18,6 @@ func Configuration(w http.ResponseWriter,r *http.Request){
 		if err != nil {
 			return
 		}
-		config.ManagerChan <- "configuration post succeed"
 		return
 	default:
 		errResult.SendErrorResponse(w,config.ErrorMethodFailed)
@@ -37,11 +37,13 @@ func getConf(w http.ResponseWriter,r *http.Request)error{
 		config.Log.Error("[%s] json unmarshal confCenter  manager  err:%v", time.Now(), err)
 		return err
 	}
+	config.ManagerChan <- Manager.OldGateway
 	config.Log.Debug("[%s] the confcenter push here manager succeed manager is %v",time.Now(),Manager.OldGateway)
 	succeedResult.NormalResponse(w,succeedResult)
 	return nil
 }
 
+//pull service config from ConfCenter
 func GetService(w http.ResponseWriter,r *http.Request){
 	switch r.Method {
 	case http.MethodPost:
@@ -49,21 +51,18 @@ func GetService(w http.ResponseWriter,r *http.Request){
 		if err != nil {
 			return
 		}
-		config.InsertChan <- "service post here succeed"
 		return
 	case http.MethodDelete:
 		err := deleteService(w,r)
 		if err != nil {
 			return
 		}
-		config.DeleteChan <- "delete service here succeed"
 		return
 	case http.MethodPatch:
 		err := getService(w,r)
 		if err != nil {
 			return
 		}
-		config.ServiceChan <- "service patch here succeed"
 		return
 	default:
 		errResult.SendErrorResponse(w,config.ErrorMethodFailed)
@@ -84,6 +83,8 @@ func getService(w http.ResponseWriter,r *http.Request)error{
 		config.Log.Warn("[%s] json unmarshal confCenter service err:%v", time.Now(), err)
 		return err
 	}
+	OperationList.Set(http.MethodPatch,Service.Operations)
+	config.ManagerChan <- OperationList
 	config.Log.Debug("confCenter push here Service.Operations  is %v",Service.Operations)
 	succeedResult.NormalResponse(w,succeedResult)
 	return nil
@@ -101,6 +102,8 @@ func deleteService(w http.ResponseWriter,r *http.Request)(err error){
 		config.Log.Warn("[%s] json unmarshal confCenter service err:%v", time.Now(), err)
 		return err
 	}
+	OperationList.Set(http.MethodDelete,DeleteService.Operations)
+	config.ManagerChan <- OperationList
 	config.Log.Debug("confCenter delete here DeleteService.Operations  is %v",DeleteService.Operations)
 	succeedResult.NormalResponse(w,succeedResult)
 	return
@@ -119,6 +122,7 @@ func insertService(w http.ResponseWriter,r *http.Request)(err error){
 		config.Log.Warn("[%s] json unmarshal confCenter service err:%v", time.Now(), err)
 		return err
 	}
+	config.ManagerChan <- InsertService.Operations
 	config.Log.Debug("confCenter delete here DeleteService.Operations  is %v",DeleteService.Operations)
 	succeedResult.NormalResponse(w,succeedResult)
 	return

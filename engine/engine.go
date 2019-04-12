@@ -9,6 +9,7 @@ import (
 	"quick/basic"
 	"quick/basic/app"
 	"quick/config"
+	"time"
 )
 
 func Engine(w http.ResponseWriter, r *http.Request) {
@@ -16,6 +17,7 @@ func Engine(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
+	config.Log.Debug("[ %v ] the request is %v",time.Now(),service)
 	b, _ := config.Srv.Balance.Get(r.URL.Path)
  	domain,err :=b.(balance.Balancing).Balance(service.([]string))
 	if err != nil {
@@ -39,7 +41,7 @@ func Engine(w http.ResponseWriter, r *http.Request) {
 		basic.Clean(r, resp)
 	}()
 	getHeader(w, result)
-	config.Log.Debug("engine body is %v", resp.String())
+	config.Log.Debug("[ %v ] response  is %v",time.Now(), resp.String())
 	io.WriteString(w, resp.String())
 	return
 }

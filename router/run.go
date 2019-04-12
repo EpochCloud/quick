@@ -52,7 +52,7 @@ func Intranet(wg *sync.WaitGroup) {
 		}
 	}()
 	inDomain := fmt.Sprintf("%s:%s", config.M.OldGateway.IntranetIp, config.M.OldGateway.IntranetPort)
-	log.Debug("config.M.OldGateway intraneIp is :%v", inDomain)
+	log.Debug("[ %v ]config.M.OldGateway intraneIp is :%v",time.Now(), inDomain)
 	srv := &http.Server{
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
@@ -88,9 +88,6 @@ func intranetshutdown(exit chan os.Signal, wg *sync.WaitGroup, srv *http.Server,
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(config.M.OldGateway.TimeOut)*time.Second)
 	defer func() {
 		cancel()
-		close(config.InsertChan)
-		close(config.DeleteChan)
-		close(config.ServiceChan)
 		close(config.ManagerChan)
 		wg.Done()
 	}()

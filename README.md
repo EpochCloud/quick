@@ -1,6 +1,6 @@
 # README
 
-![image](https://github.com/EpochCloud/quick/blob/master/png/logo.png)
+<img src='https://github.com/EpochCloud/quick/blob/master/png/logo.png' div align=center; />
 
 ## 简介
 

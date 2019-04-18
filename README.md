@@ -1,5 +1,7 @@
 # README
 
+![image](https://github.com/EpochCloud/quick/blob/master/png/logo.png)
+
 ## 简介
 
 quick是一款专为微服务架构定制的高性能网关
@@ -14,7 +16,7 @@ quick是一款专为微服务架构定制的高性能网关
 - 轻松任何基础架构，可以部署在云或者云内部部署，也可直接在物理机运行
 - 跨语言，所有语言都可以使用
 - 可作为分布式网关、微服务网关
-...
+  ...
 
 
 ## 首先运行confcenter
@@ -24,7 +26,6 @@ quick是一款专为微服务架构定制的高性能网关
 
   - /gateway_configuration ：需要注册的服务
 
-    
 
 2. go get github.com/EpochCloud/quick
     这里go get的时候可能会报如下信息：
@@ -58,7 +59,6 @@ package ConfCenter/router: unrecognized import path "ConfCenter/router" (import 
       SrvAddr = "http://192.168.51.11:8081/quick_operation"
    ```
 
-   
 
 > **注意**：这里的toml有效只有一次，也就是刚启动的时候有效，启动之后这个配置文件就没什么用了，所以不用担心，以后不会修改这个配置文件
 > 即使confcenter从192.168.51.11:8081迁移到192.168.51.12:8082 这也是没有问题的，quick会依旧保持高性能的运行状态，没有任何影响
@@ -87,8 +87,9 @@ linux环境
 
 ## 示例
 
-
 注意由于本人能力有限，没有给出前端代码，所以下面一切测试均在postman中测试
+
+  ***目前正在积极开发confcenter管理平台ConfCenter_web_Admin，有些功能已经可用，具体链接如下 https://github.com/EpochCloud/ConfCenter_web_Admin   具体按照相应Readme进行安装，可以使用此平台来替代postman***
 
 1、运行confcenter并且注册quick的配置
 ```go
